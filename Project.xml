@@ -105,7 +105,10 @@
 
 	<!--Packages-->
 	<haxelib name="flixel-addons" />
+
 	<haxelib name="hscript" />
+	<!--Fix some polymod 1.5.3+ errors lol-->
+	<haxedef name="hscriptPos" />
 
 	<haxelib name="flixel-ui" />
 	<haxelib name="polymod"/>
