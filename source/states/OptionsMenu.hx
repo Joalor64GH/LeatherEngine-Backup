@@ -98,7 +98,8 @@ class OptionsMenu extends MusicBeatState
 			new StringSaveOption("Play As", ["bf", "opponent"], 7, "playAs"),
 			new BoolOption("Disable Debug Menus", "disableDebugMenus", 10),
 			new BoolOption("Invisible Notes", "invisibleNotes", 11),
-			new GameSubstateOption("Import Old Scores", 12, substates.ImportHighscoresSubstate)
+			new BoolOption("Auto Pause", "autoPause", 12),
+			new GameSubstateOption("Import Old Scores", 13, substates.ImportHighscoresSubstate)
 		],
 		[
 			"Optimizations",

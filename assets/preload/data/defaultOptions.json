@@ -213,6 +213,10 @@
             "value": true
         },
         {
+            "option": "autoPause",
+            "value": true
+        },
+        {
             "option": "timeBarStyle",
             "value": "leather engine"
         },

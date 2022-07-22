@@ -64,6 +64,8 @@ class MusicBeatState extends FlxUIState
 		if(FlxG.keys.checkStatus(FlxKey.fromString(utilities.Options.getData("fullscreenBind", "binds")), FlxInputState.JUST_PRESSED))
 			FlxG.fullscreen = !FlxG.fullscreen;
 
+		FlxG.autoPause = utilities.Options.getData("autoPause");
+
 		Application.current.window.title = windowNamePrefix + windowNameSuffix;
 	}
 
