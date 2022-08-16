@@ -381,7 +381,7 @@ class FreeplayState extends MusicBeatState
 						lime.media.openal.AL.sourcef(FlxG.sound.music._channel.__source.__backend.handle, lime.media.openal.AL.PITCH, 1);
 		
 					if (vocals.active && vocals.playing)
-						vocals.stop();
+						destroyFreeplayVocals();
 				}
 				#end
 
@@ -397,14 +397,17 @@ class FreeplayState extends MusicBeatState
 					vocals = new FlxSound().loadEmbedded(Paths.voices(songs[curSelected].songName.toLowerCase(), curDiffString));
 				else
 					vocals = new FlxSound();
-
-				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString), 0.7);
-
+				
 				FlxG.sound.list.add(vocals);
-				vocals.play();
 				vocals.persist = true;
 				vocals.looped = true;
 				vocals.volume = 0.7;
+
+				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString), 0.7);
+				// this is dumb but shutup
+				FlxG.sound.music.stop();
+				FlxG.sound.music.play();
+				vocals.play();
 			}
 
 			if(vocals != null && FlxG.sound.music != null && !FlxG.keys.justPressed.ENTER)
@@ -413,16 +416,8 @@ class FreeplayState extends MusicBeatState
 				{
 					if(vocals.time >= FlxG.sound.music.endTime)
 						vocals.pause();
-				}
-	
-				if(vocals.active && FlxG.sound.music.active)
-				{
-					if(vocals.time > FlxG.sound.music.time + 20)
-					{
-						vocals.pause();
-						vocals.time = FlxG.sound.music.time;
-						vocals.play();
-					}
+					if(FlxG.sound.music.time == 0)
+						vocals.play(true);
 				}
 			}
 
@@ -477,7 +472,7 @@ class FreeplayState extends MusicBeatState
 							CoolUtil.coolError(PlayState.SONG.song.toLowerCase() + " (JSON) != " + songs[curSelected].songName.toLowerCase() + " (FREEPLAY)\nTry making them the same.",
 						"Leather Engine's No Crash, We Help Fix Stuff Tool");
 						else
-							CoolUtil.coolError("Something is wrong with your song names, I'm not sure what, but I'm sure you can figure it out.",
+							CoolUtil.coolError("Your song seems to not have an Inst.ogg, check the folder name in 'songs'!",
 					"Leather Engine's No Crash, We Help Fix Stuff Tool");
 					}
 				}
