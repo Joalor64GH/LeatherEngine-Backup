@@ -2,7 +2,6 @@
     "defaultFlipX": false,
     "dancesLeftAndRight": false,
     "imagePath": "picoSpeaker",
-    "spritesheetType": "SPARROW",
     "barColor": [205, 229, 112],
     "healthIcon": "pico",
     "positionOffset": [235, 5],

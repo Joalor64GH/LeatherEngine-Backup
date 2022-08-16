@@ -66,98 +66,6 @@ class Character extends FlxSprite
 
 		switch (curCharacter)
 		{
-			case 'monster':
-				frames = Paths.getSparrowAtlas('characters/Monster_Assets');
-				animation.addByPrefix('idle', 'monster idle', 24, false);
-				animation.addByPrefix('singUP', 'monster up note', 24, false);
-				animation.addByPrefix('singDOWN', 'monster down', 24, false);
-				// fixed this garbage lol
-				animation.addByPrefix('singLEFT', 'Monster Right note', 24, false);
-				animation.addByPrefix('singRIGHT', 'Monster left note', 24, false);
-
-				playAnim('idle');
-				barColor = FlxColor.fromRGB(245, 255, 105);
-			case 'monster-christmas':
-				frames = Paths.getSparrowAtlas('characters/monsterChristmas');
-				animation.addByPrefix('idle', 'monster idle', 24, false);
-				animation.addByPrefix('singUP', 'monster up note', 24, false);
-				animation.addByPrefix('singDOWN', 'monster down', 24, false);
-				// fixed this too lol
-				animation.addByPrefix('singLEFT', 'Monster Right note', 24, false);
-				animation.addByPrefix('singRIGHT', 'Monster left note', 24, false);
-
-				playAnim('idle');
-				barColor = FlxColor.fromRGB(245, 255, 105);
-				icon = "monster";
-			case 'pico':
-				if(Options.getData("optimizedChars"))
-					frames = Paths.getSparrowAtlas('characters/Optimized_Pico_FNF_assetss');
-				else
-					frames = Paths.getSparrowAtlas('characters/Pico_FNF_assetss');
-
-				animation.addByPrefix('idle', "Pico Idle Dance", 24);
-				animation.addByPrefix('singUP', 'pico Up note0', 24, false);
-				animation.addByPrefix('singDOWN', 'Pico Down Note0', 24, false);
-
-				if (isPlayer)
-				{
-					animation.addByPrefix('singLEFT', 'Pico NOTE LEFT0', 24, false);
-					animation.addByPrefix('singRIGHT', 'Pico Note Right0', 24, false);
-					animation.addByPrefix('singRIGHTmiss', 'Pico Note Right Miss', 24, false);
-					animation.addByPrefix('singLEFTmiss', 'Pico NOTE LEFT miss', 24, false);
-				}
-				else
-				{
-					// Need to be flipped! REDO THIS LATER!
-					animation.addByPrefix('singLEFT', 'Pico Note Right0', 24, false);
-					animation.addByPrefix('singRIGHT', 'Pico NOTE LEFT0', 24, false);
-					animation.addByPrefix('singRIGHTmiss', 'Pico NOTE LEFT miss', 24, false);
-					animation.addByPrefix('singLEFTmiss', 'Pico Note Right Miss', 24, false);
-				}
-
-				animation.addByPrefix('singUPmiss', 'pico Up note miss', 24);
-				animation.addByPrefix('singDOWNmiss', 'Pico Down Note MISS', 24);
-
-				playAnim('idle');
-
-				flipX = true;
-				barColor = FlxColor.fromRGB(205, 229, 112);
-				cameraOffset = [50,0];
-			case 'bf-pixel':
-				swapLeftAndRightSingPlayer = false;
-
-				frames = Paths.getSparrowAtlas('characters/bfPixel');
-				animation.addByPrefix('idle', 'BF IDLE', 24, false);
-				animation.addByPrefix('singUP', 'BF UP NOTE', 24, false);
-				animation.addByPrefix('singLEFT', 'BF LEFT NOTE', 24, false);
-				animation.addByPrefix('singRIGHT', 'BF RIGHT NOTE', 24, false);
-				animation.addByPrefix('singDOWN', 'BF DOWN NOTE', 24, false);
-				animation.addByPrefix('singUPmiss', 'BF UP MISS', 24, false);
-				animation.addByPrefix('singLEFTmiss', 'BF LEFT MISS', 24, false);
-				animation.addByPrefix('singRIGHTmiss', 'BF RIGHT MISS', 24, false);
-				animation.addByPrefix('singDOWNmiss', 'BF DOWN MISS', 24, false);
-
-				animation.addByPrefix('hey', 'BF Peace Sign', 24, false);
-
-				setGraphicSize(Std.int(width * 6));
-
-				playAnim('idle');
-
-				//width -= 100;
-				//height -= 100;
-
-				cameraOffset = [-100, -200];
-				positioningOffset = [183, 202];
-
-				antialiasing = false;
-
-				flipX = true;
-
-				barColor = FlxColor.fromRGB(123, 214, 246);
-				offsetsFlipWhenEnemy = true;
-				offsetsFlipWhenPlayer = false;
-
-				deathCharacter = "bf-pixel-dead";
 			case 'bf-pixel-dead':
 				swapLeftAndRightSingPlayer = false;
 
@@ -375,11 +283,11 @@ class Character extends FlxSprite
 				size = config.graphicsSize;
 
 			if(size != null)
-				setGraphicSize(Std.int(width * size));
+				scale.set(size, size);
 
 			for(selected_animation in config.animations)
 			{
-				if(selected_animation.indices != null)
+				if(selected_animation.indices != null && selected_animation.indices.length > 0)
 				{
 					animation.addByIndices(
 						selected_animation.name,
@@ -453,7 +361,7 @@ class Character extends FlxSprite
 		}
 
 		if(config.barColor == null)
-			config.barColor = [255,0,0];
+			config.barColor = [255, 0, 0];
 
 		barColor = FlxColor.fromRGB(config.barColor[0], config.barColor[1], config.barColor[2]);
 
@@ -465,7 +373,9 @@ class Character extends FlxSprite
 			cameraOffset = config.cameraOffset;
 		}
 
-		if(config.deathCharacterName != null)
+		if(config.deathCharacter != null)
+			deathCharacter = config.deathCharacter;
+		else if(config.deathCharacterName != null)
 			deathCharacter = config.deathCharacterName;
 		else
 			deathCharacter = "bf-dead";

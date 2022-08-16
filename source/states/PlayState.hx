@@ -1,7 +1,5 @@
 package states;
 
-import modding.HScript;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 #if sys
 import sys.FileSystem;
 #end
@@ -14,6 +12,9 @@ import utilities.Discord.DiscordClient;
 #if polymod
 import polymod.backends.PolymodAssets;
 #end
+
+import modding.HScript;
+import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import utilities.Options;
 import flixel.util.FlxStringUtil;
 import openfl.display.BitmapData;
@@ -85,8 +86,6 @@ class PlayState extends MusicBeatState
 	public static var storyDifficulty:Int = 1;
 	public static var storyDifficultyStr:String = "NORMAL";
 
-	var halloweenLevel:Bool = false;
-
 	public var vocals:FlxSound;
 
 	public static var dad:Character;
@@ -140,8 +139,8 @@ class PlayState extends MusicBeatState
 
 	public var songScore:Int = 0;
 
-	var scoreTxt:FlxText;
-	var infoTxt:FlxText;
+	public var scoreTxt:FlxText;
+	public var infoTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -153,34 +152,32 @@ class PlayState extends MusicBeatState
 	public var defaultCamZoom:Float = 1.05;
 	public var defaultHudCamZoom:Float = 1.0;
 
-	var altAnim:String = "";
+	public var altAnim:String = "";
 
 	public static var stepsTexts:Array<String>;
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
 
-	var inCutscene:Bool = false;
+	public var inCutscene:Bool = false;
 
 	public static var groupWeek:String = "";
 
-	#if discord_rpc
 	// Discord RPC variables
-	var storyDifficultyText:String = "";
-	var iconRPC:String = "";
-	var detailsText:String = "";
-	var detailsPausedText:String = "";
-	#end
+	public var storyDifficultyText:String = "";
+	public var iconRPC:String = "";
+	public var detailsText:String = "";
+	public var detailsPausedText:String = "";
 
-	var executeModchart:Bool = false;
+	public var executeModchart:Bool = false;
 
 	#if linc_luajit
 	public static var luaModchart:ModchartUtilities = null;
 	#end
 
-	var songLength:Float = 0;
+	public var songLength:Float = 0;
 
-	var binds:Array<String>;
+	public var binds:Array<String>;
 
 	public var ui_Settings:Array<String>;
 	public var mania_size:Array<String>;
@@ -196,7 +193,7 @@ class PlayState extends MusicBeatState
 		remove(object);
 	}
 
-	var missSounds:Array<FlxSound> = [];
+	public var missSounds:Array<FlxSound> = [];
 
 	public var arrow_Type_Sprites:Map<String, FlxFramesCollection> = [];
 
@@ -205,15 +202,15 @@ class PlayState extends MusicBeatState
 
 	public var hasUsedBot:Bool = false;
 
-	var splashesSkin:String = "default";
+	public var splashesSkin:String = "default";
 
 	public var splashesSettings:Array<String>;
 
-	var cutscene:Cutscene;
+	public var cutscene:Cutscene;
 
 	public static var fromPauseMenu:Bool = false;
 
-	var time:Float = 0.0;
+	public var time:Float = 0.0;
 
 	public var ratings:Map<String, Int> = ["marvelous" => 0, "sick" => 0, "good" => 0, "bad" => 0, "shit" => 0];
 
@@ -226,7 +223,7 @@ class PlayState extends MusicBeatState
 
 	public static var playingReplay:Bool = false;
 
-	var events:Array<Array<Dynamic>> = [];
+	public var events:Array<Array<Dynamic>> = [];
 
 	public var baseEvents:Array<Array<Dynamic>> = [];
 
@@ -353,15 +350,16 @@ class PlayState extends MusicBeatState
 		binds = NoteHandler.getBinds(SONG.playerKeyCount);
 
 		if (FlxG.sound.music != null)
+		{
 			FlxG.sound.music.stop();
+			FlxG.sound.music.destroy();
+		}
 
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
-
-		FlxG.cameras.setDefaultDrawTarget(camGame, true);
 
 		camHUD.bgColor.alpha = 0;
 
@@ -408,8 +406,6 @@ class PlayState extends MusicBeatState
 		{
 			switch (storyWeek)
 			{
-				case 0 | 1:
-					SONG.stage = 'stage';
 				case 2:
 					SONG.stage = 'spooky';
 				case 3:
@@ -457,12 +453,14 @@ class PlayState extends MusicBeatState
 
 		arrow_Type_Sprites.set("default", Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default", 'shared'));
 
+		// preload ratings
 		uiMap.set("marvelous", FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/ratings/" + "marvelous")));
 		uiMap.set("sick", FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/ratings/" + "sick")));
 		uiMap.set("good", FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/ratings/" + "good")));
 		uiMap.set("bad", FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/ratings/" + "bad")));
 		uiMap.set("shit", FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/ratings/" + "shit")));
 
+		// preload numbers
 		for (i in 0...10)
 		{
 			uiMap.set(Std.string(i), FlxGraphic.fromAssetKey(Paths.image("ui skins/" + SONG.ui_Skin + "/numbers/num" + Std.string(i))));

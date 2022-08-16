@@ -2,7 +2,6 @@
     "defaultFlipX": true,
     "dancesLeftAndRight": false,
     "imagePath": "tankmanCaptain",
-    "spritesheetType": "SPARROW",
     "barColor":  [0, 0, 0],
     "cameraOffset": [-25, -25],
     "animations": [

@@ -381,7 +381,7 @@ class FreeplayState extends MusicBeatState
 						lime.media.openal.AL.sourcef(FlxG.sound.music._channel.__source.__backend.handle, lime.media.openal.AL.PITCH, 1);
 		
 					if (vocals.active && vocals.playing)
-						destroyFreeplayVocals();
+						vocals.stop();
 				}
 				#end
 
@@ -397,28 +397,22 @@ class FreeplayState extends MusicBeatState
 					vocals = new FlxSound().loadEmbedded(Paths.voices(songs[curSelected].songName.toLowerCase(), curDiffString));
 				else
 					vocals = new FlxSound();
-				
-				FlxG.sound.list.add(vocals);
+
 				vocals.persist = true;
 				vocals.looped = true;
 				vocals.volume = 0.7;
+				
+				FlxG.sound.list.add(vocals);
 
-				FlxG.sound.playMusic(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString), 0.7);
-				// this is dumb but shutup
-				FlxG.sound.music.stop();
+				FlxG.sound.music = new FlxSound().loadEmbedded(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString));
+				FlxG.sound.music.persist = true;
+				FlxG.sound.music.looped = true;
+				FlxG.sound.music.volume = 0.7;
+				
+				FlxG.sound.list.add(FlxG.sound.music);
+
 				FlxG.sound.music.play();
 				vocals.play();
-			}
-
-			if(vocals != null && FlxG.sound.music != null && !FlxG.keys.justPressed.ENTER)
-			{
-				if(vocals.active && FlxG.sound.music.active)
-				{
-					if(vocals.time >= FlxG.sound.music.endTime)
-						vocals.pause();
-					if(FlxG.sound.music.time == 0)
-						vocals.play(true);
-				}
 			}
 
 			#if cpp
@@ -462,9 +456,8 @@ class FreeplayState extends MusicBeatState
 							colorTween.cancel();
 
 						PlayState.chartingMode = false;
-						LoadingState.loadAndSwitchState(new PlayState());
-
 						destroyFreeplayVocals();
+						LoadingState.loadAndSwitchState(new PlayState());
 					}
 					else
 					{

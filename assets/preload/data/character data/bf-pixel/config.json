@@ -1,75 +1,74 @@
 {
     "defaultFlipX": true,
     "dancesLeftAndRight": false,
-    "imagePath": "bfChristmas",
-    "barColor": [81, 201, 219],
+    "imagePath": "bfPixel",
+    "barColor": [123, 214, 246],
     "offsetsFlipWhenEnemy": true,
     "offsetsFlipWhenPlayer": false,
-    "healthIcon": "bf",
+    "swapLeftAndRightSingPlayer": false,
+    "graphicSize": 6,
+    "antialiasing": false,
+    "deathCharacterName": "bf-pixel-dead",
+    "cameraOffset": [-100, -200],
+    "positionOffset": [183, 202],
     "animations": [
         {
             "name": "idle",
-            "animation_name": "BF idle dance",
+            "animation_name": "BF IDLE",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singLEFT",
-            "animation_name": "BF NOTE LEFT0",
+            "animation_name": "BF LEFT NOTE",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singDOWN",
-            "animation_name": "BF NOTE DOWN0",
+            "animation_name": "BF DOWN NOTE",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singUP",
-            "animation_name": "BF NOTE UP0",
+            "animation_name": "BF UP NOTE",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singRIGHT",
-            "animation_name": "BF NOTE RIGHT0",
+            "animation_name": "BF RIGHT NOTE",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singLEFTmiss",
-            "animation_name": "BF NOTE LEFT MISS",
+            "animation_name": "BF LEFT MISS",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singDOWNmiss",
-            "animation_name": "BF NOTE DOWN MISS",
+            "animation_name": "BF DOWN MISS",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singUPmiss",
-            "animation_name": "BF NOTE UP MISS",
+            "animation_name": "BF UP MISS",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singRIGHTmiss",
-            "animation_name": "BF NOTE RIGHT MISS",
+            "animation_name": "BF RIGHT MISS",
             "fps": 24,
             "looped": false
         },
         {
             "name": "hey",
-            "animation_name": "BF HEY",
-            "fps": 24,
-            "looped": false
-        },
-        {
-            "name": "scared",
-            "animation_name": "BF idle shaking",
+            "animation_name": "BF Peace Sign",
             "fps": 24,
             "looped": false
         }

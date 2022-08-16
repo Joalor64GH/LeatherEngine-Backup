@@ -1,75 +1,63 @@
 {
     "defaultFlipX": true,
     "dancesLeftAndRight": false,
-    "imagePath": "bfChristmas",
-    "barColor": [81, 201, 219],
-    "offsetsFlipWhenEnemy": true,
-    "offsetsFlipWhenPlayer": false,
-    "healthIcon": "bf",
+    "imagePath": "Pico_FNF_assetss",
+    "barColor": [205, 229, 112],
+    "offsetsFlipWhenEnemy": false,
+    "offsetsFlipWhenPlayer": true,
+    "cameraOffset": [50, 0],
     "animations": [
         {
             "name": "idle",
-            "animation_name": "BF idle dance",
+            "animation_name": "Pico Idle Dance",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singLEFT",
-            "animation_name": "BF NOTE LEFT0",
+            "animation_name": "Pico Note Right0",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singDOWN",
-            "animation_name": "BF NOTE DOWN0",
+            "animation_name": "Pico Down Note0",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singUP",
-            "animation_name": "BF NOTE UP0",
+            "animation_name": "pico Up note0",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singRIGHT",
-            "animation_name": "BF NOTE RIGHT0",
+            "animation_name": "Pico NOTE LEFT0",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singLEFTmiss",
-            "animation_name": "BF NOTE LEFT MISS",
+            "animation_name": "Pico Note Right Miss",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singDOWNmiss",
-            "animation_name": "BF NOTE DOWN MISS",
+            "animation_name": "Pico Down Note MISS",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singUPmiss",
-            "animation_name": "BF NOTE UP MISS",
+            "animation_name": "pico Up note miss",
             "fps": 24,
             "looped": false
         },
         {
             "name": "singRIGHTmiss",
-            "animation_name": "BF NOTE RIGHT MISS",
-            "fps": 24,
-            "looped": false
-        },
-        {
-            "name": "hey",
-            "animation_name": "BF HEY",
-            "fps": 24,
-            "looped": false
-        },
-        {
-            "name": "scared",
-            "animation_name": "BF idle shaking",
+            "animation_name": "Pico NOTE LEFT miss",
             "fps": 24,
             "looped": false
         }
