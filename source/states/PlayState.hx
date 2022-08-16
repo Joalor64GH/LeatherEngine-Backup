@@ -2013,6 +2013,8 @@ class PlayState extends MusicBeatState
 			setLuaVar("hudZoom", camHUD.zoom);
 			setLuaVar("curBeat", curBeat);
 			setLuaVar("cameraZoom", FlxG.camera.zoom);
+			setLuaVar("bpm", Conductor.bpm);
+			setLuaVar("songBpm", Conductor.bpm);
 			executeALuaState("update", [elapsed]);
 
 			if (getLuaVar("showOnlyStrums", "bool"))

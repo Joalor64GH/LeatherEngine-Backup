@@ -229,7 +229,7 @@ class Character extends FlxSprite
 			curCharacter = characterName;
 		}
 
-		if(Assets.exists(Paths.json("character data/optimized_" + characterName + "/config")) && Options.getData("optimizedChars"))
+		if(Options.getData("optimizedChars") && Assets.exists(Paths.json("character data/optimized_" + characterName + "/config")))
 			characterName = "optimized_" + characterName;
 
 		var rawJson = Assets.getText(Paths.json("character data/" + characterName + "/config")).trim();
@@ -401,11 +401,6 @@ class Character extends FlxSprite
 				addOffset(arrayOffset[0], Std.parseInt(arrayOffset[1]), Std.parseInt(arrayOffset[2]));
 			}
 		}
-	}
-
-	public function quickAnimAdd(animName:String, animPrefix:String)
-	{
-		animation.addByPrefix(animName, animPrefix, 24, false);
 	}
 
 	public var shouldDance:Bool = true;
