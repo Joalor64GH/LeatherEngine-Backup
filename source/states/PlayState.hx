@@ -3741,6 +3741,10 @@ class PlayState extends MusicBeatState
 				(note != null ? note.arrow_Type : "default"),
 				(note != null ? note.isSustainNote : false)
 			]);
+
+			#if linc_luajit
+			setLuaVar("misses", misses);
+			#end
 		}
 	}
 
@@ -4746,6 +4750,10 @@ class PlayState extends MusicBeatState
 	{
 		if (totalNotes != 0 && !switchedStates)
 			accuracy = FlxMath.roundDecimal(100.0 / (totalNotes / hitNotes), 2);
+
+		#if linc_luajit
+		setLuaVar("accuracy", accuracy);
+		#end
 
 		updateRating();
 		updateScoreText();
