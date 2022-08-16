@@ -95,11 +95,7 @@ class ChartingStateDev extends MusicBeatState
 		if (Assets.getLibrary("shared") == null)
 			Assets.loadLibrary("shared");
 
-        #if sys
-		var characterList = CoolUtil.coolTextFilePolymod(Paths.txt('characterList'));
-		#else
-		var characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
-		#end
+        var characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
         for(Text in characterList)
         {
