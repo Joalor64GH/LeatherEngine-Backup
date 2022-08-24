@@ -24,6 +24,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 
 using StringTools;
+
 /**
 	*DEBUG MODE
  */
@@ -43,9 +44,7 @@ class AnimationDebug extends MusicBeatState
 		this.daAnim = daAnim;
 	}
 
-	var characters:Map<String, Array<String>> = [
-		"default" => ["bf", "gf"]
-	];
+	var characters:Map<String, Array<String>> = ["default" => ["bf", "gf"]];
 
 	var modListLmao:Array<String> = ["default"];
 	var curCharList:Array<String>;
@@ -78,7 +77,7 @@ class AnimationDebug extends MusicBeatState
 
 		FlxG.camera = charCam;
 
-		if(FlxG.sound.music.active)
+		if (FlxG.sound.music.active)
 			FlxG.sound.music.stop();
 
 		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
@@ -111,14 +110,14 @@ class AnimationDebug extends MusicBeatState
 		add(camFollow);
 
 		FlxG.sound.playMusic(Paths.music('breakfast'));
-		
+
 		charCam.follow(camFollow);
 
 		var characterData:Array<String> = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
 		char.screenCenter();
 
-		for(item in characterData)
+		for (item in characterData)
 		{
 			var characterDataVal:Array<String> = item.split(":");
 
@@ -127,7 +126,7 @@ class AnimationDebug extends MusicBeatState
 
 			var charsLmao:Array<String> = [];
 
-			if(characters.exists(charMod))
+			if (characters.exists(charMod))
 				charsLmao = characters.get(charMod);
 			else
 				modListLmao.push(charMod);
@@ -158,11 +157,12 @@ class AnimationDebug extends MusicBeatState
 		charDropDown.cameras = [camHUD];
 		add(charDropDown);
 
-		modDropDown = new FlxUIDropDownMenuCustom(charDropDown.x + charDropDown.width + 1, charDropDown.y, FlxUIDropDownMenu.makeStrIdLabelArray(modListLmao, true), function(modID:String)
+		modDropDown = new FlxUIDropDownMenuCustom(charDropDown.x + charDropDown.width + 1, charDropDown.y,
+			FlxUIDropDownMenu.makeStrIdLabelArray(modListLmao, true), function(modID:String)
 		{
 			var mod:String = modListLmao[Std.parseInt(modID)];
 
-			if(characters.exists(mod))
+			if (characters.exists(mod))
 			{
 				curCharList = characters.get(mod);
 				charDropDown.setData(FlxUIDropDownMenu.makeStrIdLabelArray(curCharList, true));
@@ -187,7 +187,8 @@ class AnimationDebug extends MusicBeatState
 		modDropDown.cameras = [camHUD];
 		add(modDropDown);
 
-		offset_Button = new FlxButton(charDropDown.x, charDropDown.y - 30, "Save Offsets", function() {
+		offset_Button = new FlxButton(charDropDown.x, charDropDown.y - 30, "Save Offsets", function()
+		{
 			saveOffsets();
 		});
 		offset_Button.scrollFactor.set();

@@ -106,15 +106,18 @@
 	<!--Packages-->
 	<haxelib name="flixel-addons" />
 
-	<haxelib name="hscript" />
+	<!--<haxelib name="hscript" /> legacy hscript-->
+	<haxelib name="hscript-improved" /> <!-- fork created by yoshicrafter that is way better (thx yoshi btw)-->
 	<!--Fix some polymod 1.5.3+ errors lol (needs hscript 2.5.0 i think???)-->
 	<haxedef name="hscriptPos" />
 
 	<haxelib name="flixel-ui" />
-	<haxelib name="polymod"/>
+	<haxelib name="polymod" />
 	
-	<haxelib name="discord_rpc" if="desktop"/>
-	<haxelib name="linc_luajit" if="desktop"/>
+	<haxelib name="discord_rpc" if="desktop" />
+	<haxelib name="linc_luajit" if="desktop" />
+
+	<haxelib name="hxCodec" if="desktop" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

@@ -37,7 +37,9 @@ class Conductor
 
 	public static var stepsPerSection:Int = 16;
 
-	public function new() { }
+	public function new()
+	{
+	}
 
 	public static function recalculateStuff(?multi:Float = 1)
 	{
@@ -58,10 +60,10 @@ class Conductor
 		var curTimeScale:Array<Int> = timeScale;
 		var totalSteps:Int = 0;
 		var totalPos:Float = 0;
-		
+
 		for (i in 0...song.notes.length)
 		{
-			if(song.notes[i].changeBPM && song.notes[i].bpm != curBPM)
+			if (song.notes[i].changeBPM && song.notes[i].bpm != curBPM)
 			{
 				curBPM = song.notes[i].bpm;
 
@@ -74,7 +76,9 @@ class Conductor
 				bpmChangeMap.push(event);
 			}
 
-			if(song.notes[i].changeTimeScale && song.notes[i].timeScale[0] != curTimeScale[0] && song.notes[i].timeScale[1] != curTimeScale[1])
+			if (song.notes[i].changeTimeScale
+				&& song.notes[i].timeScale[0] != curTimeScale[0]
+				&& song.notes[i].timeScale[1] != curTimeScale[1])
 			{
 				curTimeScale = song.notes[i].timeScale;
 

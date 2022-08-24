@@ -105,7 +105,9 @@ class LoadingState extends MusicBeatState
 	function checkLibrary(library:String)
 	{
 		trace(Assets.hasLibrary(library));
-		if (Assets.getLibrary(library) == null)
+		trace(library);
+
+		if (!Assets.hasLibrary(library))
 		{
 			@:privateAccess
 			if (!LimeAssets.libraryPaths.exists(library))

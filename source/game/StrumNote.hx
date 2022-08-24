@@ -9,11 +9,12 @@ import flixel.FlxSprite;
 using StringTools;
 
 /*
-credit to psych engine devs (sorry idk who made this originally, all ik is that srperez modified it for shaggy and then i got it from there)
-*/
+	credit to psych engine devs (sorry idk who made this originally, all ik is that srperez modified it for shaggy and then i got it from there)
+ */
 class StrumNote extends FlxSprite
 {
 	public var resetAnim:Float = 0;
+
 	private var noteData:Int = 0;
 
 	public var swagWidth:Float = 0;
@@ -27,19 +28,20 @@ class StrumNote extends FlxSprite
 
 	public var colorSwap:ColorSwap;
 
-	var noteColor:Array<Int> = [0,0,0];
+	var noteColor:Array<Int> = [0, 0, 0];
 
-	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_Settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int) {
-		if(ui_Skin == null)
+	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_Settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int)
+	{
+		if (ui_Skin == null)
 			ui_Skin = PlayState.SONG.ui_Skin;
 
-		if(ui_Settings == null)
+		if (ui_Settings == null)
 			ui_Settings = PlayState.instance.ui_Settings;
 
-		if(mania_size == null)
+		if (mania_size == null)
 			mania_size = PlayState.instance.mania_size;
 
-		if(keyCount == null)
+		if (keyCount == null)
 			keyCount = PlayState.SONG.keyCount;
 
 		noteData = leData;
@@ -61,13 +63,16 @@ class StrumNote extends FlxSprite
 		colorSwap.brightness = noteColor[2] / 100;
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		angle = modAngle;
-		
-		if(resetAnim > 0) {
+
+		if (resetAnim > 0)
+		{
 			resetAnim -= elapsed;
 
-			if(resetAnim <= 0) {
+			if (resetAnim <= 0)
+			{
 				playAnim('static');
 				resetAnim = 0;
 			}
@@ -76,12 +81,13 @@ class StrumNote extends FlxSprite
 		super.update(elapsed);
 	}
 
-	public function playAnim(anim:String, ?force:Bool = false) {
+	public function playAnim(anim:String, ?force:Bool = false)
+	{
 		animation.play(anim, force);
-		//updateHitbox();
-        centerOrigin();
+		// updateHitbox();
+		centerOrigin();
 
-		if(anim == "static")
+		if (anim == "static")
 		{
 			colorSwap.hue = 0;
 			colorSwap.saturation = 0;
@@ -96,13 +102,13 @@ class StrumNote extends FlxSprite
 			colorSwap.brightness = noteColor[2] / 100;
 		}
 
-		if(ui_Skin != "pixel")
+		if (ui_Skin != "pixel")
 		{
 			offset.x = frameWidth / 2;
 			offset.y = frameHeight / 2;
-	
+
 			var scale = Std.parseFloat(ui_Settings[0]) * (Std.parseFloat(ui_Settings[2]) - (Std.parseFloat(mania_size[keyCount - 1])));
-	
+
 			offset.x -= 156 * scale / 2;
 			offset.y -= 156 * scale / 2;
 		}

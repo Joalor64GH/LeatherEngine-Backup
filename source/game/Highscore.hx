@@ -42,9 +42,9 @@ class Highscore
 	{
 		var daSong:String = formatSong(song, diff);
 
-		if(songRanks.exists(daSong))
+		if (songRanks.exists(daSong))
 		{
-			if(accuracy > getSongAccuracy(song, diff))
+			if (accuracy > getSongAccuracy(song, diff))
 			{
 				setRank(daSong, rank);
 				setAccuracy(daSong, accuracy);
@@ -101,7 +101,7 @@ class Highscore
 	{
 		var daSong:String = song.toLowerCase();
 
-		if(diff.toLowerCase() != "normal")
+		if (diff.toLowerCase() != "normal")
 			daSong += "-" + diff.toLowerCase();
 
 		return daSong;
@@ -125,7 +125,7 @@ class Highscore
 
 	public static function getSongRank(song:String, diff:String, ?formatted:Bool = false):String
 	{
-		if(!songRanks.exists((!formatted ? formatSong(song, diff) : song)))
+		if (!songRanks.exists((!formatted ? formatSong(song, diff) : song)))
 			setRank((!formatted ? formatSong(song, diff) : song), "N/A");
 
 		return songRanks.get((!formatted ? formatSong(song, diff) : song));
@@ -133,7 +133,7 @@ class Highscore
 
 	public static function getSongAccuracy(song:String, diff:String, ?formatted:Bool = false):Float
 	{
-		if(!songAccuracies.exists((!formatted ? formatSong(song, diff) : song)))
+		if (!songAccuracies.exists((!formatted ? formatSong(song, diff) : song)))
 			setAccuracy((!formatted ? formatSong(song, diff) : song), 0);
 
 		return FlxMath.roundDecimal(songAccuracies.get((!formatted ? formatSong(song, diff) : song)), 2);
@@ -141,13 +141,13 @@ class Highscore
 
 	public static function load():Void
 	{
-		if(utilities.Options.getData("songScores", "scores") != null)
+		if (utilities.Options.getData("songScores", "scores") != null)
 			songScores = utilities.Options.getData("songScores", "scores");
 
-		if(utilities.Options.getData("songRanks", "scores") != null)
+		if (utilities.Options.getData("songRanks", "scores") != null)
 			songRanks = utilities.Options.getData("songRanks", "scores");
 
-		if(utilities.Options.getData("songAccuracies", "scores") != null)
+		if (utilities.Options.getData("songAccuracies", "scores") != null)
 			songAccuracies = utilities.Options.getData("songAccuracies", "scores");
 	}
 
@@ -159,30 +159,30 @@ class Highscore
 		var funnyRanks = songRanks;
 		var funnyAccuracies = songAccuracies;
 
-		if(FlxG.save.data.songScores != null)
+		if (FlxG.save.data.songScores != null)
 			funnyScores = FlxG.save.data.songScores;
-		
-		if(FlxG.save.data.songRanks != null)
+
+		if (FlxG.save.data.songRanks != null)
 			funnyRanks = FlxG.save.data.songRanks;
 
-		if(FlxG.save.data.songAccuracies != null)
+		if (FlxG.save.data.songAccuracies != null)
 			funnyAccuracies = FlxG.save.data.songAccuracies;
 
-		for(key in funnyScores.keys())
+		for (key in funnyScores.keys())
 		{
-			if(key != null)
+			if (key != null)
 			{
-				if(getScore(key, "", true) < funnyScores.get(key))
+				if (getScore(key, "", true) < funnyScores.get(key))
 				{
 					setScore(key, funnyScores.get(key));
 
-					if(funnyAccuracies.exists(key))
+					if (funnyAccuracies.exists(key))
 						setAccuracy(key, funnyAccuracies.get(key));
 
-					if(funnyRanks.exists(key))
+					if (funnyRanks.exists(key))
 						setRank(key, funnyRanks.get(key));
 				}
-			}	
+			}
 		}
 
 		FlxG.save.close();

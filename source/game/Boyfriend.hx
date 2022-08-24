@@ -2,6 +2,7 @@ package game;
 
 import states.PlayState;
 import flixel.FlxG;
+
 using StringTools;
 
 class Boyfriend extends Character

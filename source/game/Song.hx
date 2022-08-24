@@ -14,7 +14,7 @@ class Event
 	public var value:Float;
 	public var type:String;
 
-	public function new(name:String,pos:Float,value:Float,type:String)
+	public function new(name:String, pos:Float, value:Float, type:String)
 	{
 		this.name = name;
 		this.position = pos;
@@ -36,30 +36,19 @@ typedef SwagSong =
 	var gf:Null<String>;
 	var stage:String;
 	var validScore:Bool;
-
 	var modchartPath:String;
-
 	var keyCount:Null<Int>;
 	var playerKeyCount:Null<Int>;
-
 	var timescale:Array<Int>;
-
 	var chartOffset:Null<Int>; // in milliseconds
-
 	// shaggy pog
 	var mania:Null<Int>;
-
 	var ui_Skin:Null<String>;
-
 	var cutscene:String;
 	var endCutscene:String;
-
 	var eventObjects:Array<Event>;
-
 	var events:Null<Array<Array<Dynamic>>>;
-
 	var specialAudioName:Null<String>;
-
 	var gfVersion:Null<String>;
 	var player3:Null<String>;
 }
@@ -75,7 +64,7 @@ class Song
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
 	public var gf:Null<String> = 'gf';
-	
+
 	public var stage:Null<String> = 'stage';
 
 	public var keyCount:Null<Int> = 4;
@@ -91,21 +80,21 @@ class Song
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
 		var original_Folder = folder;
-		
+
 		folder = "song data/" + folder + "/";
 
 		var rawJson:String = "";
 
 		rawJson = Assets.getText(Paths.json(folder.toLowerCase() + jsonInput.toLowerCase())).trim();
 
-		if(rawJson != "")
+		if (rawJson != "")
 		{
 			while (!rawJson.endsWith("}"))
 			{
 				rawJson = rawJson.substr(0, rawJson.length - 1);
 				// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 			}
-	
+
 			return parseJSONshit(rawJson);
 		}
 		else
@@ -117,7 +106,7 @@ class Song
 				rawJson = rawJson.substr(0, rawJson.length - 1);
 				// LOL GOING THROUGH THE BULLSHIT TO CLEAN IDK WHATS STRANGE
 			}
-	
+
 			return parseJSONshit(rawJson, original_Folder);
 		}
 	}
@@ -127,13 +116,13 @@ class Song
 		var swagShit:SwagSong = cast Json.parse(rawJson).song;
 		swagShit.validScore = true;
 
-		if(Std.string(swagShit.keyCount) == "null")
+		if (Std.string(swagShit.keyCount) == "null")
 			swagShit.keyCount = 4;
 
-		if(Std.string(swagShit.mania) != "null")
+		if (Std.string(swagShit.mania) != "null")
 		{
-			//shaggy support pog
-			switch(swagShit.mania)
+			// shaggy support pog
+			switch (swagShit.mania)
 			{
 				case 0:
 					swagShit.keyCount = 4;
@@ -146,47 +135,52 @@ class Song
 			}
 		}
 
-		if(Std.string(swagShit.playerKeyCount) == "null")
+		if (Std.string(swagShit.playerKeyCount) == "null")
 			swagShit.playerKeyCount = swagShit.keyCount;
 
-		if(originalSongName != null)
+		if (originalSongName != null)
 			swagShit.song = originalSongName;
 
-		if(Std.string(swagShit.ui_Skin) == "null")
+		if (Std.string(swagShit.ui_Skin) == "null")
 			swagShit.ui_Skin = swagShit.song == "Senpai" || swagShit.song == "Roses" || swagShit.song == "Thorns" ? "pixel" : "default";
 
-		if(swagShit.timescale == null)
-			swagShit.timescale = [4,4];
+		if (swagShit.timescale == null)
+			swagShit.timescale = [4, 4];
 
-		if(swagShit.chartOffset == null)
+		if (swagShit.chartOffset == null)
 			swagShit.chartOffset = 0;
 
 		swagShit.mania = null;
 
-		if(swagShit.keyCount > NoteVariables.Note_Count_Directions.length)
+		if (swagShit.keyCount > NoteVariables.Note_Count_Directions.length)
 			swagShit.keyCount = NoteVariables.Note_Count_Directions.length; // guarenteed safe value?
 
-		if(swagShit.events == null)
+		if (swagShit.events == null)
 			swagShit.events = [];
 
-		if(swagShit.gfVersion != null && swagShit.gf == null)
+		if (swagShit.gfVersion != null && swagShit.gf == null)
 			swagShit.gf = swagShit.gfVersion;
 
-		if(swagShit.player3 != null && swagShit.gf == null)
+		if (swagShit.player3 != null && swagShit.gf == null)
 			swagShit.gf = swagShit.player3;
 
 		var new_events:Array<Array<Dynamic>> = [];
 
-		for(event in swagShit.events)
+		for (event in swagShit.events)
 		{
 			// aka, if(event == A Psych Engine Event Lmfao)
-			if(Std.isOfType(event[0], Float) || Std.isOfType(event[0], Int) && Std.isOfType(event[1], Array))
+			if (Std.isOfType(event[0], Float) || Std.isOfType(event[0], Int) && Std.isOfType(event[1], Array))
 			{
 				var event_datas:Array<Array<Dynamic>> = event[1];
 
-				for(actual_event_data in event_datas)
+				for (actual_event_data in event_datas)
 				{
-					var new_event = [Std.string(actual_event_data[0]), event[0], Std.string(actual_event_data[1]), Std.string(actual_event_data[2])];
+					var new_event = [
+						Std.string(actual_event_data[0]),
+						event[0],
+						Std.string(actual_event_data[1]),
+						Std.string(actual_event_data[2])
+					];
 					new_events.push(new_event);
 				}
 			}
@@ -194,33 +188,33 @@ class Song
 				new_events.push(event);
 		}
 
-		if(swagShit.notes != null)
+		if (swagShit.notes != null)
 		{
 			for (secNum in 0...swagShit.notes.length)
 			{
 				var sec:SwagSection = swagShit.notes[secNum];
-	
+
 				var i:Int = 0;
 				var notes:Array<Dynamic> = sec.sectionNotes;
 				var len:Int = notes.length;
-	
-				while(i < len)
+
+				while (i < len)
 				{
 					var note:Array<Dynamic> = notes[i];
-	
-					if(note[1] < 0 && Std.isOfType(note[2], String))
+
+					if (note[1] < 0 && Std.isOfType(note[2], String))
 					{
-						if(note[3] == null)
+						if (note[3] == null)
 							note[3] = "";
-						if(note[4] == null)
+						if (note[4] == null)
 							note[4] = "";
 
 						new_events.push([note[2], note[0], note[3], note[4]]);
 						notes.remove(note);
 						len = notes.length;
 					}
-	
-					else i++;
+					else
+						i++;
 				}
 			}
 		}
