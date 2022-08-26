@@ -579,6 +579,9 @@ class PlayState extends MusicBeatState
 		if (SONG == null) // this should never happen, but just in case
 			SONG = Song.loadFromJson('tutorial');
 
+		// gaming time
+		curSong = SONG.song;
+
 		#if linc_luajit
 		// clear dumb lua stuffs
 		ModchartUtilities.lua_Characters.clear();
@@ -1762,8 +1765,6 @@ class PlayState extends MusicBeatState
 	{
 		var songData = SONG;
 		Conductor.changeBPM(songData.bpm, songMultiplier);
-
-		curSong = songData.song;
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song,
