@@ -480,7 +480,7 @@ class ModchartUtilities
 
 			lua_Sprites.remove(id);
 
-			PlayState.instance.removeObject(sprite);
+			PlayState.instance.remove(sprite);
 			sprite.kill();
 			sprite.destroy();
 
@@ -1166,7 +1166,7 @@ class ModchartUtilities
 		Lua_helper.add_callback(lua, "changeDadCharacter", function(character:String)
 		{
 			var oldDad = PlayState.dad;
-			PlayState.instance.removeObject(oldDad);
+			PlayState.instance.remove(oldDad);
 
 			var dad = new Character(100, 100, character);
 			PlayState.dad = dad;
@@ -1201,7 +1201,7 @@ class ModchartUtilities
 				var oldIcon = PlayState.instance.iconP2;
 				var bar = PlayState.instance.healthBar;
 
-				PlayState.instance.removeObject(oldIcon);
+				PlayState.instance.remove(oldIcon);
 				oldIcon.kill();
 				oldIcon.destroy();
 
@@ -1220,7 +1220,7 @@ class ModchartUtilities
 		Lua_helper.add_callback(lua, "changeBoyfriendCharacter", function(character:String)
 		{
 			var oldBF = PlayState.boyfriend;
-			PlayState.instance.removeObject(oldBF);
+			PlayState.instance.remove(oldBF);
 
 			var boyfriend = new Boyfriend(770, 450, character);
 			PlayState.boyfriend = boyfriend;
@@ -1255,7 +1255,7 @@ class ModchartUtilities
 				var oldIcon = PlayState.instance.iconP1;
 				var bar = PlayState.instance.healthBar;
 
-				PlayState.instance.removeObject(oldIcon);
+				PlayState.instance.remove(oldIcon);
 				oldIcon.kill();
 				oldIcon.destroy();
 

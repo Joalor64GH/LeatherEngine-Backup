@@ -443,7 +443,6 @@ class FreeplayState extends MusicBeatState
 				{
 					PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 					PlayState.isStoryMode = false;
-					PlayState.storyDifficulty = curDifficulty;
 					PlayState.songMultiplier = curSpeed;
 					PlayState.storyDifficultyStr = curDiffString.toUpperCase();
 		
@@ -455,7 +454,7 @@ class FreeplayState extends MusicBeatState
 						if(colorTween != null)
 							colorTween.cancel();
 
-						PlayState.chartingMode = false;
+						PlayState.loadChartEvents = true;
 						destroyFreeplayVocals();
 						LoadingState.loadAndSwitchState(new PlayState());
 					}

@@ -833,8 +833,6 @@ class ChartingState extends MusicBeatState
 					curRenderedEvents.remove(curRenderedEvents.members[0], true);
 				}
 
-				PlayState.instance.arrow_Type_Sprites.clear();
-
 				updateGrid();
 			});
 
@@ -1322,8 +1320,8 @@ class ChartingState extends MusicBeatState
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				vocals.stop();
-				PlayState.fromPauseMenu = true;
-				PlayState.chartingMode = true;
+				PlayState.playCutscenes = true;
+				PlayState.loadChartEvents = false;
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 

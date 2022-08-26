@@ -186,7 +186,7 @@ class PauseSubState extends MusicBeatSubstate
 					updateAlphabets();
 				case "no cutscenes":
 					PlayState.SONG.speed = PlayState.previousScrollSpeedLmao;
-					PlayState.fromPauseMenu = true;
+					PlayState.playCutscenes = true;
 
 					#if linc_luajit
 					if (PlayState.luaModchart != null)
@@ -218,11 +218,8 @@ class PauseSubState extends MusicBeatSubstate
 				case "bot":
 					utilities.Options.setData(!utilities.Options.getData("botplay"), "botplay");
 
-					@:privateAccess
-					{
-						PlayState.instance.updateSongInfoText();
-						PlayState.instance.hasUsedBot = true;
-					}
+					PlayState.instance.updateSongInfoText();
+					PlayState.SONG.validScore = false;
 
 					FlxTween.tween(scoreWarning, {alpha: 1, y: scoreWarning.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
@@ -245,9 +242,8 @@ class PauseSubState extends MusicBeatSubstate
 				case "ghost tapping":
 					utilities.Options.setData(!utilities.Options.getData("ghostTapping"), "ghostTapping");
 
-					@:privateAccess
 					if(utilities.Options.getData("ghostTapping")) // basically making it easier lmao
-						PlayState.instance.hasUsedBot = true;
+						PlayState.SONG.validScore = false;
 
 					FlxTween.tween(scoreWarning, {alpha: 1, y: scoreWarning.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
@@ -292,9 +288,8 @@ class PauseSubState extends MusicBeatSubstate
 				case "no death":
 					utilities.Options.setData(!utilities.Options.getData("noDeath"), "noDeath");
 
-					@:privateAccess
 					if(utilities.Options.getData("noDeath"))
-						PlayState.instance.hasUsedBot = true;
+						PlayState.SONG.validScore = false;
 
 					FlxTween.tween(scoreWarning, {alpha: 1, y: scoreWarning.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
@@ -325,8 +320,7 @@ class PauseSubState extends MusicBeatSubstate
 
 					updateAlphabets();
 
-					@:privateAccess
-					PlayState.instance.hasUsedBot = true;
+					PlayState.SONG.validScore = false;
 
 					FlxTween.tween(scoreWarning, {alpha: 1, y: scoreWarning.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});
@@ -357,8 +351,7 @@ class PauseSubState extends MusicBeatSubstate
 
 					updateAlphabets();
 
-					@:privateAccess
-					PlayState.instance.hasUsedBot = true;
+					PlayState.SONG.validScore = false;
 
 					FlxTween.tween(scoreWarning, {alpha: 1, y: scoreWarning.y + 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 0.7});
 					FlxTween.tween(scoreWarning, {alpha: 0, y: scoreWarning.y - 10}, 0.4, {ease: FlxEase.quartInOut, startDelay: 4});

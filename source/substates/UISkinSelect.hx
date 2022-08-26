@@ -19,7 +19,7 @@ class UISkinSelect extends MusicBeatSubstate
     var arrow_Group:FlxTypedGroup<FlxSprite> = new FlxTypedGroup<FlxSprite>();
     var ui_Skin:String = utilities.Options.getData("uiSkin");
 
-    public var ui_Settings:Array<String> = CoolUtil.coolTextFile(Paths.txt("ui skins/" + utilities.Options.getData("uiSkin") + "/config"));
+    public var ui_settings:Array<String> = CoolUtil.coolTextFile(Paths.txt("ui skins/" + utilities.Options.getData("uiSkin") + "/config"));
     public var ui_Skins:Array<String> = CoolUtil.coolTextFile(Paths.txt("uiSkinList"));
 
     public var mania_gap:Array<String>;
@@ -131,7 +131,7 @@ class UISkinSelect extends MusicBeatSubstate
 
     function create_Arrows(?new_Key_Count = 4)
     {
-        ui_Settings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/config"));
+        ui_settings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/config"));
         mania_size = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/maniasize"));
 		mania_offset = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/maniaoffset"));
 
@@ -163,9 +163,9 @@ class UISkinSelect extends MusicBeatSubstate
 
             babyArrow.frames = arrow_Tex;
 
-            babyArrow.antialiasing = ui_Settings[3] == "true";
+            babyArrow.antialiasing = ui_settings[3] == "true";
 
-			babyArrow.setGraphicSize(Std.int((babyArrow.width * Std.parseFloat(ui_Settings[0])) * (Std.parseFloat(ui_Settings[2]) - (Std.parseFloat(mania_size[4 - 1])))));
+			babyArrow.setGraphicSize(Std.int((babyArrow.width * Std.parseFloat(ui_settings[0])) * (Std.parseFloat(ui_settings[2]) - (Std.parseFloat(mania_size[4 - 1])))));
 			babyArrow.updateHitbox();
 
             babyArrow.screenCenter(X);
@@ -202,8 +202,8 @@ class UISkinSelect extends MusicBeatSubstate
             rating.alpha = 0;
             FlxTween.tween(rating, {y: rating.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.2});
 
-            rating.setGraphicSize(Std.int(rating.width * Std.parseFloat(ui_Settings[0]) * Std.parseFloat(ui_Settings[4])));
-            rating.antialiasing = ui_Settings[3] == "true";
+            rating.setGraphicSize(Std.int(rating.width * Std.parseFloat(ui_settings[0]) * Std.parseFloat(ui_settings[4])));
+            rating.antialiasing = ui_settings[3] == "true";
             rating.updateHitbox();
 
             arrow_Group.add(rating);
@@ -217,8 +217,8 @@ class UISkinSelect extends MusicBeatSubstate
         combo.alpha = 0;
         FlxTween.tween(combo, {y: combo.y + 10, alpha: 1}, 1, {ease: FlxEase.circOut, startDelay: 0.2});
 
-        combo.setGraphicSize(Std.int(combo.width * Std.parseFloat(ui_Settings[0]) * Std.parseFloat(ui_Settings[4])));
-        combo.antialiasing = ui_Settings[3] == "true";
+        combo.setGraphicSize(Std.int(combo.width * Std.parseFloat(ui_settings[0]) * Std.parseFloat(ui_settings[4])));
+        combo.antialiasing = ui_settings[3] == "true";
         combo.updateHitbox();
 
         arrow_Group.add(combo);
@@ -229,8 +229,8 @@ class UISkinSelect extends MusicBeatSubstate
 
             number.loadGraphic(Paths.image("ui skins/" + ui_Skin + "/numbers/num" + i, 'shared'));
 
-            number.setGraphicSize(Std.int(number.width * Std.parseFloat(ui_Settings[1])));
-			number.antialiasing = ui_Settings[3] == "true";
+            number.setGraphicSize(Std.int(number.width * Std.parseFloat(ui_settings[1])));
+			number.antialiasing = ui_settings[3] == "true";
 			number.updateHitbox();
 
             number.y -= 10;

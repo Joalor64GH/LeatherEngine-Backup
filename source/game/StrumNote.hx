@@ -20,7 +20,7 @@ class StrumNote extends FlxSprite
 	public var swagWidth:Float = 0;
 
 	public var ui_Skin:String = "default";
-	public var ui_Settings:Array<String>;
+	public var ui_settings:Array<String>;
 	public var mania_size:Array<String>;
 	public var keyCount:Int;
 
@@ -30,13 +30,13 @@ class StrumNote extends FlxSprite
 
 	var noteColor:Array<Int> = [0, 0, 0];
 
-	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_Settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int)
+	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int)
 	{
 		if (ui_Skin == null)
 			ui_Skin = PlayState.SONG.ui_Skin;
 
-		if (ui_Settings == null)
-			ui_Settings = PlayState.instance.ui_Settings;
+		if (ui_settings == null)
+			ui_settings = PlayState.instance.ui_settings;
 
 		if (mania_size == null)
 			mania_size = PlayState.instance.mania_size;
@@ -47,7 +47,7 @@ class StrumNote extends FlxSprite
 		noteData = leData;
 
 		this.ui_Skin = ui_Skin;
-		this.ui_Settings = ui_Settings;
+		this.ui_settings = ui_settings;
 		this.mania_size = mania_size;
 		this.keyCount = keyCount;
 
@@ -107,7 +107,7 @@ class StrumNote extends FlxSprite
 			offset.x = frameWidth / 2;
 			offset.y = frameHeight / 2;
 
-			var scale = Std.parseFloat(ui_Settings[0]) * (Std.parseFloat(ui_Settings[2]) - (Std.parseFloat(mania_size[keyCount - 1])));
+			var scale = Std.parseFloat(ui_settings[0]) * (Std.parseFloat(ui_settings[2]) - (Std.parseFloat(mania_size[keyCount - 1])));
 
 			offset.x -= 156 * scale / 2;
 			offset.y -= 156 * scale / 2;

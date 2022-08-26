@@ -302,8 +302,6 @@ class StoryMenuState extends MusicBeatState
 			selectedWeek = true;
 	
 			var dif = curDifficulties[curDifficulty][0].toLowerCase();
-
-			PlayState.storyDifficulty = curDifficulty;
 	
 			PlayState.SONG = Song.loadFromJson(PlayState.storyPlaylist[0].toLowerCase() + (dif == "normal" ? "" : "-" + dif), PlayState.storyPlaylist[0].toLowerCase());
 			PlayState.storyWeek = curWeek;
@@ -314,7 +312,7 @@ class StoryMenuState extends MusicBeatState
 	
 			new FlxTimer().start(1, function(tmr:FlxTimer)
 			{
-				PlayState.chartingMode = false;
+				PlayState.loadChartEvents = true;
 				LoadingState.loadAndSwitchState(new PlayState());
 			});
 		}

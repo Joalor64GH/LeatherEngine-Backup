@@ -13,11 +13,6 @@ using StringTools;
 
 class CoolUtil
 {
-	public static var difficultyArray:Array<String> = ['EASY', "NORMAL", "HARD"];
-
-	public static function difficultyString():String
-		return difficultyArray[PlayState.storyDifficulty];
-
 	public static function boundTo(value:Float, min:Float, max:Float):Float
 	{
 		var newValue:Float = value;

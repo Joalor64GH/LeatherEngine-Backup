@@ -42,7 +42,7 @@ class ResultsScreenSubstate extends MusicBeatSubstate
 
         @:privateAccess
         var bottomText:FlxText = new FlxText(FlxG.width, FlxG.height, 0, 
-            "Press ENTER to close this menu\n" + (!PlayState.playingReplay && !PlayState.instance.hasUsedBot ? "Press SHIFT to save this replay\nPress ESCAPE to view this replay\n" : "" )
+            "Press ENTER to close this menu\n" + (!PlayState.playingReplay && PlayState.SONG.validScore ? "Press SHIFT to save this replay\nPress ESCAPE to view this replay\n" : "" )
         );
         bottomText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, OUTLINE, FlxColor.BLACK);
         bottomText.setPosition(FlxG.width - bottomText.width - 2, FlxG.height - (!PlayState.playingReplay ? 96 : 32));
@@ -65,12 +65,10 @@ class ResultsScreenSubstate extends MusicBeatSubstate
             FlxG.state.closeSubState();
         }
 
-        @:privateAccess
-        if(FlxG.keys.justPressed.SHIFT && !PlayState.playingReplay && !PlayState.instance.hasUsedBot)
+        if(FlxG.keys.justPressed.SHIFT && !PlayState.playingReplay && PlayState.SONG.validScore)
             PlayState.instance.saveReplay();
 
-        @:privateAccess
-        if(FlxG.keys.justPressed.ESCAPE && !PlayState.playingReplay && !PlayState.instance.hasUsedBot)
+        if(FlxG.keys.justPressed.ESCAPE && !PlayState.playingReplay && PlayState.SONG.validScore)
         {
             PlayState.instance.saveReplay();
             PlayState.instance.fixSettings();

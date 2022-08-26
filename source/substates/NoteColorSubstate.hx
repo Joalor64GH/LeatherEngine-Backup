@@ -19,7 +19,7 @@ class NoteColorSubstate extends MusicBeatSubstate
     var key_Count:Int = 4;
     var arrow_Group:FlxTypedGroup<StrumNote> = new FlxTypedGroup<StrumNote>();
 
-    public var ui_Settings:Array<String>;
+    public var ui_settings:Array<String>;
     public var mania_size:Array<String>;
     public var mania_offset:Array<String>;
 
@@ -41,7 +41,7 @@ class NoteColorSubstate extends MusicBeatSubstate
 
     public function new()
     {
-        ui_Settings = CoolUtil.coolTextFile(Paths.txt("ui skins/default/config"));
+        ui_settings = CoolUtil.coolTextFile(Paths.txt("ui skins/default/config"));
         mania_size = CoolUtil.coolTextFile(Paths.txt("ui skins/default/maniasize"));
         mania_offset = CoolUtil.coolTextFile(Paths.txt("ui skins/default/maniaoffset"));
         mania_gap = CoolUtil.coolTextFile(Paths.txt("ui skins/default/maniagap"));
@@ -238,13 +238,13 @@ class NoteColorSubstate extends MusicBeatSubstate
 
 		for (i in 0...key_Count)
         {
-            var babyArrow:StrumNote = new StrumNote(0, strumLine.y, i, "default", ui_Settings, mania_size, key_Count);
+            var babyArrow:StrumNote = new StrumNote(0, strumLine.y, i, "default", ui_settings, mania_size, key_Count);
 
             babyArrow.frames = Paths.getSparrowAtlas("ui skins/default/arrows/default", 'shared');
 
-			babyArrow.antialiasing = ui_Settings[3] == "true";
+			babyArrow.antialiasing = ui_settings[3] == "true";
 
-			babyArrow.setGraphicSize(Std.int((babyArrow.width * Std.parseFloat(ui_Settings[0])) * (Std.parseFloat(ui_Settings[2]) - (Std.parseFloat(mania_size[key_Count-1])))));
+			babyArrow.setGraphicSize(Std.int((babyArrow.width * Std.parseFloat(ui_settings[0])) * (Std.parseFloat(ui_settings[2]) - (Std.parseFloat(mania_size[key_Count-1])))));
 			babyArrow.updateHitbox();
 
 			babyArrow.animation.addByPrefix('default', NoteVariables.Other_Note_Anim_Stuff[key_Count - 1][i] + "0");

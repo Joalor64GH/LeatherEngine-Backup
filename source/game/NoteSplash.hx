@@ -23,7 +23,7 @@ class NoteSplash extends FlxSprite
 
 		if (frames == null)
 		{
-			if (Std.parseInt(PlayState.instance.ui_Settings[6]) == 1)
+			if (Std.parseInt(PlayState.instance.ui_settings[6]) == 1)
 				frames = Paths.getSparrowAtlas('ui skins/' + PlayState.SONG.ui_Skin + "/arrows/Note_Splashes");
 			else
 				frames = Paths.getSparrowAtlas("ui skins/default/arrows/Note_Splashes");

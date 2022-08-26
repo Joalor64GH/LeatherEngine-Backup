@@ -26,7 +26,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		super();
 		
-		PlayState.fromPauseMenu = true;
+		PlayState.playCutscenes = true;
 
 		FlxG.camera.scroll.set();
 		FlxG.camera.target = null;

@@ -83,33 +83,28 @@ class Note extends FlxSprite
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y = -2000;
 
-		if (!PlayState.instance.arrow_Type_Sprites.exists(arrow_Type))
-		{
-			if (PlayState.instance.types.contains(arrow_Type))
-				PlayState.instance.arrow_Type_Sprites.set(arrow_Type, Paths.getSparrowAtlas('ui skins/' + song.ui_Skin + "/arrows/" + arrow_Type, 'shared'));
-			else
-				PlayState.instance.arrow_Type_Sprites.set(arrow_Type, Paths.getSparrowAtlas("ui skins/default/arrows/" + arrow_Type, 'shared'));
-		}
-
-		frames = PlayState.instance.arrow_Type_Sprites.get(arrow_Type);
+		if (PlayState.instance.types.contains(arrow_Type))
+			frames = Paths.getSparrowAtlas('ui skins/' + song.ui_Skin + "/arrows/" + arrow_Type, 'shared');
+		else
+			frames = Paths.getSparrowAtlas("ui skins/default/arrows/" + arrow_Type, 'shared');
 
 		animation.addByPrefix("default", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + "0", 24);
 		animation.addByPrefix("hold", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + " hold0", 24);
 		animation.addByPrefix("holdend", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + " hold end0", 24);
 
-		var lmaoStuff = Std.parseFloat(PlayState.instance.ui_Settings[0]) * (Std.parseFloat(PlayState.instance.ui_Settings[2])
+		var lmaoStuff = Std.parseFloat(PlayState.instance.ui_settings[0]) * (Std.parseFloat(PlayState.instance.ui_settings[2])
 			- (Std.parseFloat(PlayState.instance.mania_size[localKeyCount - 1])));
 
 		if (isSustainNote)
 			setGraphicSize(Std.int(width * lmaoStuff),
-				Std.int(height * Std.parseFloat(PlayState.instance.ui_Settings[0]) * (Std.parseFloat(PlayState.instance.ui_Settings[2])
+				Std.int(height * Std.parseFloat(PlayState.instance.ui_settings[0]) * (Std.parseFloat(PlayState.instance.ui_settings[2])
 					- (Std.parseFloat(PlayState.instance.mania_size[3])))));
 		else
 			setGraphicSize(Std.int(width * lmaoStuff));
 
 		updateHitbox();
 
-		antialiasing = PlayState.instance.ui_Settings[3] == "true";
+		antialiasing = PlayState.instance.ui_settings[3] == "true";
 
 		x += swagWidth * noteData;
 		animation.play("default");
