@@ -1869,26 +1869,19 @@ class PlayState extends MusicBeatState
 				{
 					oldNote = unspawnNotes[Std.int(unspawnNotes.length - 1)];
 
-					var sustainNote:Note = new Note(daStrumTime + (Std.int(Conductor.stepCrochet) * susNote) + Std.int(Conductor.stepCrochet), daNoteData,
+					var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + Conductor.stepCrochet, daNoteData,
 						oldNote, true, char, songNotes[4], null, chars, gottaHitNote);
 					sustainNote.scrollFactor.set();
 					unspawnNotes.push(sustainNote);
 
 					sustainNote.mustPress = gottaHitNote;
 
-					if (sustainNote.mustPress)
-						sustainNote.x += FlxG.width / 2; // general offset
-
 					sustainGroup.push(sustainNote);
 					sustainNote.sustains = sustainGroup;
 				}
 
 				swagNote.sustains = sustainGroup;
-
 				swagNote.mustPress = gottaHitNote;
-
-				if (swagNote.mustPress)
-					swagNote.x += FlxG.width / 2; // general offset
 			}
 
 			daBeats += 1;
@@ -2587,7 +2580,7 @@ class PlayState extends MusicBeatState
 							var swagRect = new FlxRect(0, 0, daNote.frameWidth * 2, daNote.frameHeight * 2);
 							swagRect.height = (coolStrum.y + (coolStrum.width / 2) - daNote.y) / daNote.scale.y;
 							swagRect.y = daNote.frameHeight - swagRect.height;
-
+							
 							daNote.clipRect = swagRect;
 						}
 					}
@@ -2604,11 +2597,11 @@ class PlayState extends MusicBeatState
 							&& daNote.y + daNote.offset.y * daNote.scale.y <= (strumLine.y + Note.swagWidth / 2))
 						{
 							// Clip to strumline
-							var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
+						var swagRect = new FlxRect(0, 0, daNote.width / daNote.scale.x, daNote.height / daNote.scale.y);
 							swagRect.y = (coolStrum.y + Note.swagWidth / 2 - daNote.y) / daNote.scale.y;
-							swagRect.height -= swagRect.y;
+						swagRect.height -= swagRect.y;
 
-							daNote.clipRect = swagRect;
+						daNote.clipRect = swagRect;
 						}
 					}
 				}
@@ -2781,9 +2774,6 @@ class PlayState extends MusicBeatState
 						else
 							daNote.x = coolStrum.x + prevPlayerXVals.get(arrayVal);
 
-						if (!daNote.isSustainNote)
-							daNote.modAngle = coolStrum.angle;
-
 						if (coolStrum.alpha != 1)
 							daNote.alpha = coolStrum.alpha;
 
@@ -2837,7 +2827,7 @@ class PlayState extends MusicBeatState
 
 				if (Conductor.songPosition - Conductor.safeZoneOffset > daNote.strumTime)
 				{
-					if (daNote.mustPress && daNote.playMissOnMiss && !(daNote.isSustainNote && daNote.animation.curAnim.name == "holdend"))
+					if (daNote.mustPress && daNote.playMissOnMiss && !(daNote.isSustainNote && daNote.animation.curAnim.name == "holdend") && !daNote.wasGoodHit)
 					{
 						vocals.volume = 0;
 						noteMiss(daNote.noteData, daNote);
@@ -3681,13 +3671,11 @@ class PlayState extends MusicBeatState
 				{
 					notes.forEachAlive(function(daNote:Note)
 					{
+						daNote.calculateCanBeHit();
+
 						if (heldArray[daNote.noteData] && daNote.isSustainNote && daNote.mustPress)
 						{
-							// goodness this if statement is shit lmfao
-							if (((daNote.strumTime <= Conductor.songPosition && daNote.shouldHit)
-								|| (!daNote.shouldHit
-									&& (daNote.strumTime > (Conductor.songPosition - (Conductor.safeZoneOffset * 0.4))
-										&& daNote.strumTime < (Conductor.songPosition + Conductor.safeZoneOffset * 0.2)))))
+							if (daNote.canBeHit)
 							{
 								if (characterPlayingAs == 0)
 								{
@@ -4121,9 +4109,12 @@ class PlayState extends MusicBeatState
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 
-			note.kill();
-			notes.remove(note, true);
-			note.destroy();
+			if (!note.isSustainNote)
+			{
+				note.kill();
+				notes.remove(note, true);
+				note.destroy();
+			}
 		}
 	}
 
