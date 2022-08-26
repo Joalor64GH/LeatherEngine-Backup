@@ -13,6 +13,8 @@ class HealthIcon extends TrackerSprite
 
 	public var startSize:Float = 1;
 
+	public var char:String = "bf";
+
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
 		super(null, 10, -30, RIGHT);
@@ -24,9 +26,10 @@ class HealthIcon extends TrackerSprite
 		scrollFactor.set();
 	}
 
-	public function playSwagAnim(?char:String = 'bf')
-	{		
+	public function playSwagAnim(?char:String = 'bf')		
+	{
 		changeIconSet(char);
+		this.char = char;
 	}
 
 	public function changeIconSet(char:String = 'bf')

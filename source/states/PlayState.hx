@@ -2573,12 +2573,11 @@ class PlayState extends MusicBeatState
 						else
 							daNote.y += daNote.height / speed;
 
-						if (((daNote.wasGoodHit || daNote.prevNote.wasGoodHit) && daNote.shouldHit)
-							&& daNote.y - daNote.offset.y * daNote.scale.y + daNote.height >= (strumLine.y + Note.swagWidth / 2))
+						if ((daNote.wasGoodHit || daNote.prevNote.wasGoodHit) && daNote.shouldHit)
 						{
 							// Clip to strumline
-							var swagRect = new FlxRect(0, 0, daNote.frameWidth * 2, daNote.frameHeight * 2);
-							swagRect.height = (coolStrum.y + (coolStrum.width / 2) - daNote.y) / daNote.scale.y;
+							var swagRect = new FlxRect(0, 0, daNote.frameWidth, daNote.frameHeight);
+							swagRect.height = ((coolStrum.y + (coolStrum.height / 2)) - daNote.y) / daNote.scale.y;
 							swagRect.y = daNote.frameHeight - swagRect.height;
 							
 							daNote.clipRect = swagRect;

@@ -40,6 +40,7 @@ class Alphabet extends FlxSpriteGroup
 	var splitWords:Array<String> = [];
 
 	var isBold:Bool = false;
+	var isTyped:Bool = false;
 
 	public function new(x:Float, y:Float, text:String = "", ?bold:Bool = false, typed:Bool = false)
 	{
@@ -50,6 +51,7 @@ class Alphabet extends FlxSpriteGroup
 		_finalText = text;
 		this.text = text;
 		isBold = bold;
+		isTyped = typed;
 
 		if (text != "")
 		{
@@ -69,27 +71,18 @@ class Alphabet extends FlxSpriteGroup
 		doSplitWords();
 
 		var xPos:Float = 0;
+
 		for (character in splitWords)
 		{
-			// if (character.fastCodeAt() == " ")
-			// {
-			// }
-
 			if (character == " ")
 				lastWasSpace = true;
 
-			#if (haxe >= "4.0.0")
 			var canDoThingyLol:Bool = (!isBold && AlphaCharacter.alphabet.contains(character.toLowerCase()) || isBold && AlphaCharacter.boldalphabet.contains(character.toLowerCase()));
-			#else
-			var canDoThingyLol:Bool = (!isBold && AlphaCharacter.alphabet.indexOf(character.toLowerCase()) != -1 || isBold && AlphaCharacter.boldalphabet.indexOf(character.toLowerCase()) != -1);
-			#end
 
 			if (canDoThingyLol)
 			{
 				if (lastSprite != null)
-				{
 					xPos += lastSprite.width;
-				}
 
 				if (lastWasSpace)
 				{
@@ -102,23 +95,17 @@ class Alphabet extends FlxSpriteGroup
 				if (isBold)
 					letter.createBold(character);
 				else
-				{
 					letter.createLetter(character);
-				}
 
 				add(letter);
 
 				lastSprite = letter;
 			}
-
-			// loopNum += 1;
 		}
 	}
 
 	function doSplitWords():Void
-	{
 		splitWords = _finalText.split("");
-	}
 
 	public function startTypedText():Void
 	{
@@ -143,23 +130,12 @@ class Alphabet extends FlxSpriteGroup
 					}
 	
 					if (splitWords[loopNum - 1] == " ")
-					{
 						lastWasSpace = true;
-					}
 	
-					#if (haxe >= "4.0.0")
 					var isNumber:Bool = AlphaCharacter.numbers.contains(splitWords[loopNum]);
 					var isSymbol:Bool = AlphaCharacter.symbols.contains(splitWords[loopNum]);
-					#else
-					var isNumber:Bool = AlphaCharacter.numbers.indexOf(splitWords[loopNum]) != -1;
-					var isSymbol:Bool = AlphaCharacter.symbols.indexOf(splitWords[loopNum]) != -1;
-					#end
 	
-					#if (haxe >= "4.0.0")
 					var canDoThingyLol:Bool = (!isBold && AlphaCharacter.alphabet.contains(splitWords[loopNum].toLowerCase()) || isBold && AlphaCharacter.boldalphabet.contains(splitWords[loopNum].toLowerCase()) || isNumber || isSymbol);
-					#else
-					var canDoThingyLol:Bool = (!isBold && AlphaCharacter.alphabet.indexOf(splitWords[loopNum].toLowerCase()) != -1 || isBold && AlphaCharacter.boldalphabet.indexOf(splitWords[loopNum].toLowerCase()) != -1 || isNumber || isSymbol);
-					#end
 	
 					if (canDoThingyLol)
 					{
@@ -169,9 +145,7 @@ class Alphabet extends FlxSpriteGroup
 							xPos += lastSprite.width + 3;
 						}
 						else
-						{
 							xPosResetted = false;
-						}
 	
 						if (lastWasSpace)
 						{
@@ -183,23 +157,15 @@ class Alphabet extends FlxSpriteGroup
 						letter.row = curRow;
 	
 						if (isBold)
-						{
 							letter.createBold(splitWords[loopNum]);
-						}
 						else
 						{
 							if (isNumber)
-							{
 								letter.createNumber(splitWords[loopNum]);
-							}
 							else if (isSymbol)
-							{
 								letter.createSymbol(splitWords[loopNum]);
-							}
 							else
-							{
 								letter.createLetter(splitWords[loopNum]);
-							}
 	
 							letter.x += 90;
 						}
