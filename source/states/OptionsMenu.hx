@@ -82,7 +82,8 @@ class OptionsMenu extends MusicBeatState
 			#end
 			new GameStateOption("Animation Debug", 2, new AnimationDebug("dad")),
 			new GameStateOption("Stage Editor", 3, new StageMakingState("stage")),
-			new GameStateOption("Character Creator", 4, new CharacterCreationState("bf"))
+			new GameStateOption("Character Creator", 4, new CharacterCreationState("bf")),
+			new GameSubstateOption("Import Old Scores", 5, substates.ImportHighscoresSubstate)
 		],
 		[
 			"Misc",
@@ -99,7 +100,7 @@ class OptionsMenu extends MusicBeatState
 			new BoolOption("Disable Debug Menus", "disableDebugMenus", 10),
 			new BoolOption("Invisible Notes", "invisibleNotes", 11),
 			new BoolOption("Auto Pause", "autoPause", 12),
-			new GameSubstateOption("Import Old Scores", 13, substates.ImportHighscoresSubstate)
+			new BoolOption("Load Asynchronously", "loadAsynchronously", 13)
 		],
 		[
 			"Optimizations",
