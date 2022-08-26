@@ -4462,7 +4462,7 @@ class PlayState extends MusicBeatState
 
 		for (script in scripts)
 		{
-			script.callFunction(name, arguments);
+			script.call(name, arguments);
 		}
 	}
 

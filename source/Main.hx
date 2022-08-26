@@ -1,5 +1,6 @@
 package;
 
+import utilities.CoolUtil;
 import openfl.text.TextFormat;
 import ui.SimpleInfoDisplay;
 import states.TitleState;
@@ -59,6 +60,9 @@ class Main extends Sprite
 			gameWidth = Math.ceil(stageWidth / zoom);
 			gameHeight = Math.ceil(stageHeight / zoom);
 		}
+
+		CoolUtil.haxe_trace = haxe.Log.trace;
+		haxe.Log.trace = CoolUtil.haxe_print;
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 

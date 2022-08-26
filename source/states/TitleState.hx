@@ -1,45 +1,34 @@
 package states;
 
-import utilities.Options;
-import utilities.NoteVariables;
 #if discord_rpc
 import utilities.Discord.DiscordClient;
 #end
-import flixel.system.FlxVersion;
+
+import utilities.Options;
+import utilities.NoteVariables;
 import substates.OutdatedSubState;
-import openfl.Lib;
 import modding.PolymodHandler;
-import modding.ModList;
 import utilities.SaveData;
 import utilities.MusicUtilities;
 import utilities.CoolUtil;
 import game.Conductor;
-import game.Highscore;
-import utilities.PlayerSettings;
 import ui.Alphabet;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
-import flixel.system.FlxSound;
-import flixel.system.ui.FlxSoundTray;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import lime.app.Application;
 import openfl.Assets;
-import states.StoryMenuState;
 
 using StringTools;
 
@@ -347,7 +336,7 @@ class TitleState extends MusicBeatState
 
 				http.onData = function(data:String)
 				{
-					trace(data);
+					trace(data, DEBUG);
 
 					var older:Bool = false;
 
@@ -356,7 +345,7 @@ class TitleState extends MusicBeatState
 
 					if (older)
 					{
-						trace('outdated lmao! ' + data + ' != ' + Assets.getText("version.txt"));
+						trace('Outdated Version Detected! ' + data + ' != ' + Assets.getText("version.txt"), WARNING);
 
 						version_New = "v" + data;
 						FlxG.switchState(new OutdatedSubState());
@@ -367,7 +356,7 @@ class TitleState extends MusicBeatState
 
 				http.onError = function(error)
 				{
-					trace('error: $error');
+					trace('$error', ERROR);
 					FlxG.switchState(new MainMenuState()); // fail so we go anyway
 				}
 
@@ -443,81 +432,32 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					textDataText(0);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 12";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 3:
 					textDataText(1);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 11";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 4:
 					deleteCoolText();
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 10";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 5:
 					textDataText(2);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 9";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 7:
 					textDataText(3);
 					ngSpr.visible = true;
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 8";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 8:
 					deleteCoolText();
 					ngSpr.visible = false;
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 7";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 9:
 					createCoolText([curWacky[0]]);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 6";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 11:
 					addMoreText(curWacky[1]);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 5";
-					else
-						MusicBeatState.windowNameSuffix = "";
 				case 12:
 					deleteCoolText();
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 4";
-					else
-						MusicBeatState.windowNameSuffix = "";
-				case 13:
-					textDataText(4);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 3";
-					else
-						MusicBeatState.windowNameSuffix = "";
-				case 14:
-					textDataText(5);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 2";
-					else
-						MusicBeatState.windowNameSuffix = "";
-				case 15:
-					textDataText(6);
-					if (!skippedIntro)
-						MusicBeatState.windowNameSuffix = " 1";
-					else
-						MusicBeatState.windowNameSuffix = "";
+				// yipee
+				case 13 | 14 | 15:
+					textDataText(4 + (curBeat - 13));
 				case 16:
 					skipIntro();
 			}
+
+			MusicBeatState.windowNameSuffix = skippedIntro ? "" : " " + Std.string(Math.min(15 - (curBeat - 1), 15));
 		}
 		else
 		{

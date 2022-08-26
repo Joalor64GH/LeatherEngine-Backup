@@ -6,46 +6,69 @@ import hscript.Expr;
 import hscript.Interp;
 
 /**
-	Handles hscript shit for u lmfao
+	Handles HScript for you.
+
+	@author Leather128
 **/
 class HScript
 {
-	public var script:String;
+	/**
+		Parses the HScript.
 
+		@author Leather128
+	**/
 	public var parser:Parser = new Parser();
+
+	/**
+		Current Expression.
+
+		@author Leather128
+	**/
 	public var program:Expr;
+
+	/**
+		Interprets the HScript.
+
+		@author Leather128
+	**/
 	public var interp:Interp = new Interp();
 
+	/**
+		Array of other scripts to call functions from (that were loaded from the script).
+
+		@author Leather128
+	**/
 	public var other_scripts:Array<HScript> = [];
 
-	public var createPost:Bool = false;
+	/**
+		`Bool` representation for if the `createPost` function has been called yet (used in the `load` function).
+
+		@author Leather128
+	**/
+	public var create_post:Bool = false;
 
 	public function new(hscript_path:String)
 	{
-		// load text
-		program = parser.parseString(Assets.getText(hscript_path));
-
 		// parser settings
 		parser.allowJSON = true;
 		parser.allowTypes = true;
 		parser.allowMetadata = true;
+		
+		// load text
+		program = parser.parseString(Assets.getText(hscript_path));
 
-		setDefaultVariables();
+		set_default_vars();
 
 		interp.execute(program);
 	}
 
 	public function start()
-	{
-		callFunction("create");
-	}
+		call("create");
 
 	public function update(elapsed:Float)
-	{
-		callFunction("update", [elapsed]);
-	}
+		call("update", [elapsed]);
 
-	public function callFunction(func:String, ?args:Array<Dynamic>)
+	public function call(func:String, ?args:Array<Dynamic>)
 	{
 		if (interp.variables.exists(func))
 		{
@@ -67,11 +90,11 @@ class HScript
 
 		for (other_script in other_scripts)
 		{
-			other_script.callFunction(func, args);
+			other_script.call(func, args);
 		}
 	}
 
-	public function setDefaultVariables()
+	public function set_default_vars()
 	{
 		// global class shit
 
@@ -97,20 +120,20 @@ class HScript
 			trace(value);
 		});
 
-		interp.variables.set("loadScript", function(script_path:String)
+		interp.variables.set("load", function(script_path:String)
 		{
 			var new_script = new HScript(script_path);
 			new_script.start();
 
-			if (createPost)
-				new_script.callFunction("createPost");
+			if (create_post)
+				new_script.call("createPost");
 
 			other_scripts.push(new_script);
 
 			return other_scripts.length - 1;
 		});
 
-		interp.variables.set("unloadScript", function(script_index:Int)
+		interp.variables.set("unload", function(script_index:Int)
 		{
 			if (other_scripts.length - 1 >= script_index)
 				other_scripts.remove(other_scripts[script_index]);
