@@ -1,5 +1,3 @@
-Dependencies for Linux Users:
+Package Dependencies for Linux Users:
 
 - luajit (For Lua scripts obviously)
-- libvlc-dev, libvlccore-dev, and vlc-bin (For video playback) (Non-Arch Based)
-- extra/vlc (For video playback) (Arch Based)

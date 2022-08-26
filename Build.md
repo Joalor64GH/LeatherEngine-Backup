@@ -28,7 +28,7 @@ Dependencies for compiling:
     * Windows 10 SDK (Latest)
     ```
 
-## Linux
+## Linux (if you decide to try and use hxCodec while compiling which requires changes at the moment)
     In your package manager, install the following packages:
 
     ```

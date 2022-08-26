@@ -3,9 +3,6 @@ package states;
 #if sys
 import sys.FileSystem;
 #end
-#if BIT_64
-import modding.FlxVideo;
-#end
 #if discord_rpc
 import utilities.Discord.DiscordClient;
 #end
@@ -1172,27 +1169,20 @@ class PlayState extends MusicBeatState
 			endingSong = true;
 		}
 
-		var foundFile:Bool = false;
-		var fileName:String = #if sys Sys.getCwd() + PolymodAssets.getPath(Paths.video(name, ext)) #else Paths.video(name, ext) #end;
-
+		var fileName:String = #if (sys && polymod) PolymodAssets.getPath(Paths.video(name, ext)) #else Paths.video(name, ext) #end;
 		#if sys
-		if (FileSystem.exists(fileName))
-		{
-			foundFile = true;
-		}
+		var foundFile:Bool = FileSystem.exists(Sys.getCwd() + fileName);
+		#else
+		var foundFile:Bool = OpenFlAssets.exists(fileName);
 		#end
 
+		#if sys
 		if (!foundFile)
 		{
 			fileName = Paths.video(name);
-
-			#if sys
-			if (FileSystem.exists(fileName))
-			#else
-			if (OpenFlAssets.exists(fileName))
-			#end
-				foundFile = true;
+			foundFile = FileSystem.exists(Sys.getCwd() + fileName);
 		}
+		#end
 
 		if (foundFile)
 		{
@@ -1201,7 +1191,8 @@ class PlayState extends MusicBeatState
 			bg.cameras = [camHUD];
 			add(bg);
 
-			(new FlxVideo(fileName)).finishCallback = function()
+			var video_player:VideoHandler = new VideoHandler();
+			video_player.finishCallback = function()
 			{
 				remove(bg);
 
@@ -1247,6 +1238,8 @@ class PlayState extends MusicBeatState
 					}
 				}
 			}
+			video_player.playVideo(fileName);
+
 			return;
 		}
 		else
