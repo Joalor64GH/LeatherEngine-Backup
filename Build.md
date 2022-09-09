@@ -24,7 +24,7 @@ linc_luajit
 ```
 So for each of those type `haxelib install [library]` so shit like `haxelib install polymod 1.5.2`
 
-## IMPORTANT: use polymod 1.5.2 please
+## IMPORTANT: use the latest stable polymod not git please
 
 You'll also need to install a couple things that involve Gits. To do this, you need to do a few things first.
 1. Download [git-scm](https://git-scm.com/downloads). Works for Windows, Mac, and Linux, just select your build.
