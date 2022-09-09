@@ -12,7 +12,7 @@ This is the repository for Leather Engine, an engine created for making and play
 
 ### IMPORTANT:
 
-Use The Latest Polymod as it's the version that the engine is currently designed for.
+Use the latest stable Polymod (NOT `git`) as it's the version that the engine is currently designed for.
 
 For build instructions go to [Build.md](https://github.com/Leather128/LeatherEngine/blob/main/Build.md)
 
