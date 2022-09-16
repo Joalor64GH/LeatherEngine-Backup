@@ -46,7 +46,7 @@
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 
 	<!-- LEATHER ENGINE CUSTOMIZATION -->
-	<define name="VIDEOS_ALLOWED" if="desktop !linux" unless="32bit"/>
+	<define name="VIDEOS_ALLOWED" if="desktop || android" unless="32bit"/>
 
 	<assets path="mods" embed="false" exclude="*.ogg" if="web"/>
 	<assets path="mods" embed="false" exclude="*.mp3" unless="web"/>
@@ -71,9 +71,6 @@
 		<library name="shared"   preload="false" />
 		<library name="replays"  preload="false" />
 	</section>
-
-	<!-- <assets path="plugins/" if="VIDEOS_ALLOWED windows" />
-	<assets path="dlls/" rename='' if="VIDEOS_ALLOWED windows" /> -->
 	
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/> 
@@ -112,12 +109,15 @@
 	<haxedef name="hscriptPos" />
 
 	<haxelib name="flixel-ui" />
-	<haxelib name="polymod" />
+	<!-- <haxelib name="polymod" /> -->
 	
 	<haxelib name="discord_rpc" if="desktop" />
 	<haxelib name="linc_luajit" if="desktop" />
 
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
+
+	<!-- Show debug traces for hxCodec -->
+	<haxedef name="HXC_DEBUG_TRACE" /> <!-- if="debug" /> -->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
