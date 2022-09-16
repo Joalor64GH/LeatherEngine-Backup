@@ -19,6 +19,8 @@ haxelib git openfl https://github.com/openfl/openfl
 haxelib git hxCodec https://github.com/polybiusproxy/hxCodec
 ```
 
+## IMPORTANT: use the latest stable polymod not git please
+
 Dependencies for compiling:
 
 ## Windows
