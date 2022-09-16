@@ -134,6 +134,12 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
+		#if debug
+		// crash game :3
+		if (FlxG.keys.justPressed.FOUR)
+			FlxG.switchState(new HxCodecTest());
+		#end
+
 		if (!selectedSomethin)
 		{
 			if(-1 * Math.floor(FlxG.mouse.wheel) != 0)

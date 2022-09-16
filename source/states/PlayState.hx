@@ -1451,8 +1451,8 @@ class PlayState extends MusicBeatState
 
 	public function startVideo(name:String, ?ext:String, ?endSongVar:Bool = false):Void
 	{
-		/*#if BIT_64
-		#if VIDEOS_ALLOWED
+		inCutscene = true;
+		
 		if (endSongVar)
 		{
 			paused = true;
@@ -1460,96 +1460,6 @@ class PlayState extends MusicBeatState
 			switchedStates = true;
 			endingSong = true;
 		}
-
-		var fileName:String = #if (sys && polymod) PolymodAssets.getPath(Paths.video(name, ext)) #else Paths.video(name, ext) #end;
-		#if sys
-		var foundFile:Bool = FileSystem.exists(Sys.getCwd() + fileName);
-		#else
-		var foundFile:Bool = OpenFlAssets.exists(fileName);
-		#end
-
-		#if sys
-		if (!foundFile)
-		{
-			fileName = Paths.video(name);
-			foundFile = FileSystem.exists(Sys.getCwd() + fileName);
-		}
-		#end
-
-		if (foundFile)
-		{
-			var bg = new FlxSprite(-FlxG.width, -FlxG.height).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-			bg.scrollFactor.set();
-			bg.cameras = [camHUD];
-			add(bg);
-
-			var video_player:VideoHandler = new VideoHandler();
-			video_player.finishCallback = function()
-			{
-				remove(bg);
-
-				if (endingSong)
-					openSubState(new ResultsScreenSubstate());
-				else
-				{
-					if (cutscene.cutsceneAfter == null)
-					{
-						if (!endSongVar)
-							startCountdown();
-						else
-							openSubState(new ResultsScreenSubstate());
-					}
-					else
-					{
-						var oldcutscene = cutscene;
-
-						cutscene = CutsceneUtil.loadFromJson(oldcutscene.cutsceneAfter);
-
-						switch (cutscene.type.toLowerCase())
-						{
-							case "video":
-								startVideo(cutscene.videoPath, cutscene.videoExt, endSongVar);
-
-							case "dialogue":
-								var box:DialogueBox = new DialogueBox(cutscene);
-								box.scrollFactor.set();
-								box.finish_Function = function()
-								{
-									bruhDialogue(endSongVar);
-								};
-								box.cameras = [camHUD];
-
-								startDialogue(box, endSongVar);
-
-							default:
-								if (!endSongVar)
-									startCountdown();
-								else
-									openSubState(new ResultsScreenSubstate());
-						}
-					}
-				}
-			}
-			video_player.playVideo(fileName);
-
-			return;
-		}
-		else
-			FlxG.log.warn('Couldnt find video file: ' + fileName);
-		#end
-
-		if (endingSong)
-			openSubState(new ResultsScreenSubstate());
-		else
-		{
-		#end
-			if (!endSongVar)
-				startCountdown();
-			else
-				openSubState(new ResultsScreenSubstate());
-		#if BIT_64
-		}
-		#end*/
 
 		#if VIDEOS_ALLOWED
 		var video_handler:VideoHandler = new VideoHandler();
@@ -1561,6 +1471,8 @@ class PlayState extends MusicBeatState
 		var polymod_path:String = PolymodAssets.getPath(Paths.video(name, ext));
 
 		video_handler.playVideo(polymod_path.startsWith("mods") ? polymod_path : Paths.video(name, ext));
+		#else
+		bruhDialogue(endSongVar);
 		#end
 	}
 

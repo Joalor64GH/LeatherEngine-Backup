@@ -4,23 +4,17 @@
 
 	<app title="Leather Engine" file="Leather Engine" packageName="com.leather128.funkin" package="com.leather128.funkin" main="Main" version="0.4.2" company="leather128"/>
 
-	<!--Switch Export with Unique ApplicationID and Icon-->
-	<set name="APP_ID" value="0x0100f6c013bbc000" />
-
 	<!-- totally not stolen from psych engine -->
 	<haxedef name="LINC_LUA_RELATIVE_DYNAMIC_LIB"/> <!-- i think this is important -->
 
-	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
-		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
 	<app preloader="flixel.system.FlxPreloader" />
 
-	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false"/>
+	<window width="1280" height="720" fps="60" background="#000000" hardware="true" vsync="false"/>
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -31,22 +25,19 @@
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" resizable="false"/>
 
-	<!--Switch-specific-->
-	<window if="switch" orientation="landscape" fullscreen="true" width="0" height="0" resizable="true" />
-
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 	<set name="BUILD_DIR" value="export/release" unless="debug" />
 	<set name="BUILD_DIR" value="export/32bit" if="32bit" />
 
-	<classpath name="source" />
+	<source path="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 
 	<!-- LEATHER ENGINE CUSTOMIZATION -->
-	<define name="VIDEOS_ALLOWED" if="desktop || android" unless="32bit"/>
+	<define name="VIDEOS_ALLOWED" if="desktop || android" />
 
 	<assets path="mods" embed="false" exclude="*.ogg" if="web"/>
 	<assets path="mods" embed="false" exclude="*.mp3" unless="web"/>
@@ -97,40 +88,33 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
-	<haxedev set='webgl' />
+	<haxedev set='webgl' if="web" />
 
 	<!--Packages-->
+	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
+	<haxelib name="flixel-ui" />
 
 	<!--<haxelib name="hscript" /> legacy hscript-->
 	<haxelib name="hscript-improved" /> <!-- fork created by yoshicrafter that is way better (thx yoshi btw)-->
 	<!--Fix some polymod 1.5.3+ errors lol (needs hscript 2.5.0 i think???)-->
 	<haxedef name="hscriptPos" />
 
-	<haxelib name="flixel-ui" />
-	<!-- <haxelib name="polymod" /> -->
+	<haxelib name="polymod" />
 	
 	<haxelib name="discord_rpc" if="desktop" />
 	<haxelib name="linc_luajit" if="desktop" />
 
-	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
-
 	<!-- Show debug traces for hxCodec -->
 	<haxedef name="HXC_DEBUG_TRACE" /> <!-- if="debug" /> -->
 
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
-	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
-
-	<!--Disable the Flixel core debugger. Automatically gets set whenever you compile in release mode!-->
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
-
-	<!--Enable this for Nape release builds for a serious peformance improvement-->
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
-
-	<haxedef name="HXC_DEBUG_TRACE" if="debug" />
 
 	<!-- _________________________________ Custom _______________________________ -->
 

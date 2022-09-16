@@ -31,13 +31,13 @@ class MusicBeatState extends FlxUIState
 
 	override public function new()
 	{
-		#if polymod
+		/*#if polymod
 		polymod.Polymod.clearCache();
 		#end
 			
 		#if sys
 		openfl.system.System.gc();	
-		#end
+		#end*/
 
 		super();
 	}
