@@ -1,3 +1,0 @@
-Package Dependencies for Linux Users:
-
-- luajit (For Lua scripts obviously)
